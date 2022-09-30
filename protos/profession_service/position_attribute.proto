@@ -1,0 +1,56 @@
+syntax ="proto3";
+package genproto;
+option go_package ="genproto/profession_service";
+
+//import "position.proto";
+
+service PositionAttributeService{
+    rpc Create(CreatePositionAttribute) returns(PositionAttributeId){}
+    rpc GetAll(GetAllPositionAttributeRequest) returns(GetAllPositionAttributeResponse){}
+    rpc GetById(PositionAttributeId) returns (GetPositionAttribute){}
+    rpc Update(PositionAttribute) returns (AfterPositionAttributeUpdate){}
+    rpc Delete(PositionAttributeId) returns (IsDeletedPA) {}
+}
+
+
+message PositionAttribute{
+    string id =1;
+    string attributeId =2;
+    string positionId =3;
+    string value =4;
+    string created_at =5;
+    string updated_at =6;
+}
+message CreatePositionAttribute{
+    string attributeId =1;
+    string positionId =2;
+    string value =3;
+}
+message PositionAttributeId{
+    string id =1;
+}
+
+message GetAllPositionAttributeRequest{
+    string value = 1;
+    int32 offset = 2;
+    int32 limit = 3;
+    
+}
+
+message GetAllPositionAttributeResponse{
+    repeated PositionAttribute positionAttributes = 1;
+    int32 count =2;
+}
+
+message GetPositionAttribute{
+    PositionAttribute positionAttribute =1;
+    string attribute =2;
+    string position =3;
+}
+message AfterPositionAttributeUpdate{
+    GetPositionAttribute old = 1;
+    GetPositionAttribute new = 2;
+}
+message IsDeletedPA{
+    string isDeleted = 1;
+}

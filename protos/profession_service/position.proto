@@ -1,0 +1,58 @@
+syntax ="proto3";
+package genproto;
+option go_package ="genproto/profession_service";
+
+service PositionService{
+    rpc Create(CreatePosition) returns(PositionId){};
+    rpc GetAll(GetAllPositionRequest) returns (GetAllPositionResponse){}
+    rpc GetById(PositionId) returns (GetPosition){}
+    rpc Update(Position) returns (AfterUpdatePosition){}
+    rpc Delete(PositionId) returns (IsDeleted ){}
+}
+
+
+message Position{
+    string id =1;
+    string name =2;
+    string professionId =3;
+    string companyId = 4;
+    string created_at = 5;
+    string updated_at = 6;
+} 
+
+message CreatePosition{
+    string name = 1;
+    string professionId = 2;
+    string companyId = 3;
+}
+
+message PositionId{
+    string id = 1;
+}
+
+message GetAllPositionRequest{
+    string name = 1;
+    int32 offset = 2;
+    int32 limit = 3;
+
+}
+
+message GetAllPositionResponse{
+    repeated Position positions = 1;
+    int32 count = 2;
+}
+
+message GetPosition{
+    Position position = 1;
+    string company  = 2;
+    string profession = 3;
+}
+
+message AfterUpdatePosition{
+    GetPosition old =1 ;
+    GetPosition new = 2;
+}
+
+message IsDeleted{
+    string isDeleted = 1;
+}
